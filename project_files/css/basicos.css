@@ -1,0 +1,157 @@
+body .container h1,body .container h2,body .container h3,body .container h4,body .container h5,body .container h6
+{
+	color: #00B2E6;
+}
+body .container
+{
+	color: #738189;
+}
+.barra_navegacion
+{
+	background-color: rgb(255,255,255);
+	overflow: visible;
+	height: 80px;
+	position: relative;
+	margin-bottom: 0px;
+}
+.logo
+{
+	vertical-align: middle;
+	height: 55px;
+	border: none;
+	display: inline-block;
+	margin-top: 15px;
+	cursor: pointer;
+}
+.menu_principal
+{
+	margin-top: 25px;
+}
+.fuente_reducida
+{
+	font-size: 75%;
+}
+
+.menuCreacion th
+{
+	text-align: left;
+}
+.menuCreacion td
+{
+	text-align: center;
+	padding-bottom: 5px;
+}
+
+div.absoluto
+{
+	position: absolute;
+	width: inherit;
+	height: 100px;
+}
+
+div.contenedorPrincipal
+{
+	width: 650px;
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	margin-left: -325px;
+}
+div.notePostIt
+{
+	display: inline-block;
+	width: 314px;
+	height: 192px;
+	padding: 45px 35px;
+	cursor: pointer;
+}
+div.notePostIt h1
+{
+	text-align: center;
+}
+div.notePostItExtended
+{
+	margin-left: 150px;
+	margin-right: 150px;
+}
+
+.centrar
+{
+	text-align: center !important;
+}
+.centrarHorizontal
+{
+	vertical-align: middle !important;
+}
+table.contenidos
+{
+	clear: both;
+	width: 100%;
+	margin-top: 10px;
+}
+table.contenidos td
+{
+	vertical-align: top;
+	text-align: left;
+}
+.primero
+{
+	width: 320px;
+}
+
+.interespaciado
+{
+	height: 50px;
+}
+
+.nombreAcceso
+{
+	color: white;
+	position: absolute;
+	right: 15px;
+	top: 5px;
+}
+
+.contenedorImagen
+{
+	position: absolute;
+	width: 314px;
+}
+img.productoDetalle
+{
+	width: 250px;
+	height: auto;
+	position: absolute;
+	left: 50%;
+	margin-left: -125px;
+}
+img.productoCatalogo
+{
+	width: auto;
+	height: 100px;
+	margin: auto;
+	max-width: 150px;
+}   
+img.productoVisuzalizacion
+{
+	width: 150px;
+	height: auto;
+	margin: auto;
+}
+.vistaProducto
+{
+	width: 180px; 
+	margin: 5px;
+}
+.ancho100porciento
+{
+	width: 100%;
+}
+.ancho30porciento
+{
+	width: 30%;
+}
+.ancho40porciento
+{
+	width: 40%;
+}

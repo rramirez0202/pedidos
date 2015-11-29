@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="clientes" minOccurs="1" maxOccurs="1">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="cliente" maxOccurs="unbounded" minOccurs="1">
+					<xs:complexType mixed="true">
+						<xs:sequence>
+							<xs:element type="xs:string" name="observaciones" minOccurs="0" maxOccurs="1" default="" />
+							<xs:element name="sucursales" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="sucursal" maxOccurs="unbounded" minOccurs="1">
+											<xs:complexType mixed="true">
+												<xs:sequence>
+													<xs:element type="xs:string" name="observaciones" minOccurs="0" maxOccurs="1" default="" />
+													<xs:element name="contacto" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:simpleContent>
+																<xs:extension base="xs:string">
+																	<xs:attribute type="xs:string" name="nombre" use="optional" default="" />
+																	<xs:attribute type="xs:int" name="telefono1" use="optional" default="" />
+																	<xs:attribute type="xs:int" name="extension1" use="optional" default="" />
+																	<xs:attribute type="xs:int" name="telefono2" use="optional" default="" />
+																	<xs:attribute type="xs:int" name="extension2" use="optional" default="" />
+																	<xs:attribute type="xs:int" name="fax" use="optional" default="" />
+																	<xs:attribute type="xs:string" name="email" use="optional" default="" />
+																</xs:extension>
+															</xs:simpleContent>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="direccion" minOccurs="0" maxOccurs="1">
+														<xs:complexType mixed="true">
+															<xs:sequence>
+																<xs:element type="xs:string" name="referencias" minOccurs="0" maxOccurs="1" default="" />
+															</xs:sequence>
+															<xs:attribute type="xs:string" name="calle" use="optional" default="" />
+															<xs:attribute type="xs:int" name="noexterior" use="optional" default="" />
+															<xs:attribute type="xs:int" name="nointerior" use="optional" default="" />
+															<xs:attribute type="xs:string" name="colonia" use="optional" default="" />
+															<xs:attribute type="xs:string" name="municipio" use="optional" default="" />
+															<xs:attribute type="xs:string" name="estado" use="optional" default="" />
+															<xs:attribute type="xs:string" name="pais" use="optional" default="" />
+															<xs:attribute type="xs:int" name="cp" use="optional" default="" />
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute type="xs:string" name="sucursal" use="required" />
+												<xs:attribute type="xs:string" name="activo" use="optional" default="true" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="usuarios" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="usuario" maxOccurs="unbounded" minOccurs="0">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string">
+														<xs:attribute type="xs:string" name="nombre" use="required" />
+														<xs:attribute type="xs:string" name="apaterno" use="optional" default="" />
+														<xs:attribute type="xs:string" name="amaterno" use="optional" default="" />
+														<xs:attribute type="xs:string" name="usuario" use="required" />
+														<xs:attribute type="xs:string" name="email" use="required" />
+														<xs:attribute type="xs:string" name="activo" use="optional" default="true" />
+														<xs:attribute type="xs:string" name="idwinapp" use="optional" default="" />
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute type="xs:string" name="cliente" use="required" />
+						<xs:attribute type="xs:string" name="razonsocial" use="required" />
+						<xs:attribute type="xs:string" name="rfc" use="required" />
+						<xs:attribute type="xs:string" name="curp" use="optional" default="" />
+						<xs:attribute type="xs:string" name="idwinapp" use="optional" default="" />
+						<xs:attribute type="xs:string" name="activo" use="optional" default="true" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

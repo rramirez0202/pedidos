@@ -12,6 +12,7 @@ class Modcliente extends CI_Model
 	private $usuarios;
 	private $pedidos;
 	private $idwinapp;
+	private $descuento;
 	public function __construct()
 	{
 		parent::__construct();
@@ -28,6 +29,7 @@ class Modcliente extends CI_Model
 	public function getUsuarios() { return $this->usuarios; }
 	public function getPedidos() { return $this->pedidos; }
 	public function getIdwinapp() { return $this->idwinapp; }
+	public function getDescuento() { return $this->descuento; }
 	public function setIdcliente($valor) { $this->idcliente= intval($valor); }
 	public function setNombre($valor) { $this->nombre= "".$valor; }
 	public function setRazonsocial($valor) { $this->razonsocial= "".$valor; }
@@ -39,6 +41,7 @@ class Modcliente extends CI_Model
 	public function setUsuarios($valor) { if(is_array($valor)) $this->usuarios=$valor; else array_push($this->usuarios,$valor); }
 	public function setPedidos($valor) { if(is_array($valor)) $this->pedidos=$valor; else array_push($this->pedidos,$valor); }
 	public function setIdwinapp($valor) { $this->idwinapp= "".$valor; }
+	public function setDescuento($valor) { $this->descuento= "".$valor; }
 	public function getFromDatabase($id=0)
 	{
 		if($this->idcliente==""||$this->idcliente==0)
@@ -64,6 +67,7 @@ class Modcliente extends CI_Model
 		$this->setSucursales(array());
 		$this->setUsuarios(array());
 		$this->setPedidos(array());
+		$this->setDescuento($reg["descuento"]);
 		$this->db->where('idcliente',$this->idcliente);
 		$regs=$this->db->get('relclisuc');
 		if($regs!==false && $regs->num_rows()>0) 
@@ -100,6 +104,7 @@ class Modcliente extends CI_Model
 		$this->setUsuarios(explode(",",$this->input->post("frm_cliente_usuarios")));
 		$this->setPedidos(explode(",",$this->input->post("frm_cliente_pedidos")));
 		$this->setIdwinapp($this->input->post("frm_cliente_idwinapp"));
+		$this->setDescuento($this->input->post("frm_cliente_descuento"));
 		return true;
 	}
 	public function addToDatabase()
@@ -111,7 +116,8 @@ class Modcliente extends CI_Model
 			"curp"=>$this->curp,
 			"observaciones"=>$this->observaciones,
 			"activo"=>$this->activo,
-			"idwinapp"=>$this->idwinapp
+			"idwinapp"=>$this->idwinapp,
+			"descuento"=>$this->descuento
 		);
 		$this->db->insert('cliente',$data);
 		$this->setIdcliente($this->db->insert_id());
@@ -132,7 +138,8 @@ class Modcliente extends CI_Model
 			"curp"=>$this->curp,
 			"observaciones"=>$this->observaciones,
 			"activo"=>$this->activo,
-			"idwinapp"=>$this->idwinapp
+			"idwinapp"=>$this->idwinapp,
+			"descuento"=>$this->descuento
 		);
 		$this->db->where('idcliente',$this->idcliente);
 		$this->db->update('cliente',$data);
@@ -191,6 +198,7 @@ class Modcliente extends CI_Model
 		$this->usuarios=array();
 		$this->pedidos=array();
 		$this->idwinapp="";
+		$this->descuento="";
 	}
 }
 ?>

@@ -28,103 +28,105 @@ if($archivo!="")
 		$usuario=$doc->createElement("usuario");
 		foreach($cellIterator as $celda)
 		{
+			$valor=$celda->getValue();
+			$valor=str_replace("&","&amp;",$valor);
 			switch($celda->getColumn())
 			{
 				case "A":
-					$elemento->setAttribute("cliente",$celda->getValue());
+					$elemento->setAttribute("cliente",$valor);
 					break;
 				case "B":
-					$elemento->setAttribute("razonsocial",$celda->getValue());
+					$elemento->setAttribute("razonsocial",$valor);
 					break;
 				case "C":
-					$elemento->setAttribute("rfc",$celda->getValue());
+					$elemento->setAttribute("rfc",$valor);
 					break;
 				case "D":
-					$elemento->setAttribute("curp",$celda->getValue());
+					$elemento->setAttribute("curp",$valor);
 					break;
 				case "E":
-					$elemento->appendChild($doc->createElement("observaciones",$celda->getValue()));
+					$elemento->appendChild($doc->createElement("observaciones",$valor));
 					break;
 				case "F":
-					$elemento->setAttribute("idwinapp",$celda->getValue());
+					$elemento->setAttribute("idwinapp",$valor);
 					break;
 				case "G":
-					$elemento->setAttribute("activo",(strtolower(trim($celda->getValue()))=="si"?"true":"false"));
+					$elemento->setAttribute("activo",(strtolower(trim($valor))=="si"?"true":"false"));
 					break;
 				case "H":
-					$sucursal->setAttribute("sucursal",$celda->getValue());
+					$sucursal->setAttribute("sucursal",$valor);
 					break;
 				case "I":
-					$contactoSuc->setAttribute("nombre",$celda->getValue());
+					$contactoSuc->setAttribute("nombre",$valor);
 					break;
 				case "J":
-					$contactoSuc->setAttribute("telefono1",$celda->getValue());
+					$contactoSuc->setAttribute("telefono1",$valor);
 					break;
 				case "K":
-					$contactoSuc->setAttribute("extension1",$celda->getValue());
+					$contactoSuc->setAttribute("extension1",$valor);
 					break;
 				case "L":
-					$contactoSuc->setAttribute("telefono2",$celda->getValue());
+					$contactoSuc->setAttribute("telefono2",$valor);
 					break;
 				case "M":
-					$contactoSuc->setAttribute("extension2",$celda->getValue());
+					$contactoSuc->setAttribute("extension2",$valor);
 					break;
 				case "N":
-					$contactoSuc->setAttribute("email",$celda->getValue());
+					$contactoSuc->setAttribute("email",$valor);
 					break;
 				case "O":
-					$contactoSuc->setAttribute("fax",$celda->getValue());
+					$contactoSuc->setAttribute("fax",$valor);
 					break;
 				case "P":
-					$direccionSuc->setAttribute("calle",$celda->getValue());
+					$direccionSuc->setAttribute("calle",$valor);
 					break;
 				case "Q":
-					$direccionSuc->setAttribute("noexterior",$celda->getValue());
+					$direccionSuc->setAttribute("noexterior",$valor);
 					break;
 				case "R":
-					$direccionSuc->setAttribute("nointerior",$celda->getValue());
+					$direccionSuc->setAttribute("nointerior",$valor);
 					break;
 				case "S":
-					$direccionSuc->setAttribute("cp",$celda->getValue());
+					$direccionSuc->setAttribute("cp",$valor);
 					break;
 				case "T":
-					$direccionSuc->setAttribute("colonia",$celda->getValue());
+					$direccionSuc->setAttribute("colonia",$valor);
 					break;
 				case "U":
-					$direccionSuc->setAttribute("municipio",$celda->getValue());
+					$direccionSuc->setAttribute("municipio",$valor);
 					break;
 				case "V":
-					$direccionSuc->setAttribute("estado",$celda->getValue());
+					$direccionSuc->setAttribute("estado",$valor);
 					break;
 				case "W":
-					$direccionSuc->appendChild($doc->createElement("referencias",$celda->getValue()));
+					$direccionSuc->appendChild($doc->createElement("referencias",$valor));
 					break;
 				case "X":
-					$sucursal->appendChild($doc->createElement("observaciones",$celda->getValue()));
+					$sucursal->appendChild($doc->createElement("observaciones",$valor));
 					break;
 				case "Y":
-					$sucursal->setAttribute("activo",(strtolower(trim($celda->getValue()))=="si"?"true":"false"));
+					$sucursal->setAttribute("activo",(strtolower(trim($valor))=="si"?"true":"false"));
 					break;
 				case "Z":
-					$usuario->setAttribute("nombre",$celda->getValue());
+					$usuario->setAttribute("nombre",$valor);
 					break;
 				case "AA":
-					$usuario->setAttribute("apaterno",$celda->getValue());
+					$usuario->setAttribute("apaterno",$valor);
 					break;
 				case "AB":
-					$usuario->setAttribute("amaterno",$celda->getValue());
+					$usuario->setAttribute("amaterno",$valor);
 					break;
 				case "AC":
-					$usuario->setAttribute("usuario",$celda->getValue());
+					$usuario->setAttribute("usuario",$valor);
 					break;
 				case "AD":
-					$usuario->setAttribute("email",$celda->getValue());
+					$usuario->setAttribute("email",$valor);
 					break;
 				case "AE":
-					$usuario->setAttribute("idwinapp",$celda->getValue());
+					$usuario->setAttribute("idwinapp",$valor);
 					break;
 				case "AF":
-					$usuario->setAttribute("activo",(strtolower(trim($celda->getValue()))=="si"?"true":"false"));
+					$usuario->setAttribute("activo",(strtolower(trim($valor))=="si"?"true":"false"));
 					break;
 			}
 		}

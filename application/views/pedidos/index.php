@@ -75,6 +75,8 @@ $flujo=new Modflujo();
 								$cte=new Modcliente();
 								$cte->setIdcliente($ped->getIdcliente());
 								$cte->getFromDatabase();
+								if(!in_array($ped->getStatus(),$this->config->item("estadospedidomostrar")))
+									continue;
 							?>
 								<tr>
 									<td>

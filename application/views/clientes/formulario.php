@@ -54,6 +54,12 @@
 				        </div>
 			        </div>
 			        <div class="form-group">
+			        	<label for="frm_cliente_descuento" class="col-sm-2 control-label">Descuento</label>
+			        	<div class="col-sm-10">
+			        		<input type="text" class="form-control" id="frm_cliente_descuento" name="frm_cliente_descuento" value="<?= $objeto->getDescuento(); ?>" placeholder="0.00" maxlength="5" />
+			        	</div>
+			        </div>
+			        <div class="form-group">
 						<div class="col-sm-8"></div>
 						<div class="col-sm-2">
 			                <button type="button" class="btn btn-success" onclick="Cliente.Enviar(<?= ($objeto->getIdcliente()!="" && $objeto->getIdcliente()!=0?'false':'true'); ?>)" >Guardar</button>

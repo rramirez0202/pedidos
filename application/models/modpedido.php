@@ -21,6 +21,7 @@ class Modpedido extends CI_Model
 	private $sucursaldireccion;
 	private $sucursalpago;
 	private $idwinapp;
+	private $observaciones;
 	public function __construct()
 	{
 		$this->idpedido=0;
@@ -32,7 +33,7 @@ class Modpedido extends CI_Model
 		$this->descuentoporcentaje=0.0;
 		$this->descuentomonto=0.0;
 		$this->subtotal="";
-		$this->ivaporcentaje=16.0;
+		$this->ivaporcentaje=0.0;
 		$this->ivamonto=0.0;
 		$this->total=0.0;
 		$this->status=0;
@@ -43,6 +44,7 @@ class Modpedido extends CI_Model
 		$this->sucursaldireccion=0;
 		$this->sucursalpago=0;
 		$this->idwinapp="";
+		$this->observaciones="";
 	}
 	public function getIdpedido() { return $this->idpedido; }
 	public function getFechapedido() { return $this->fechapedido; }
@@ -64,6 +66,7 @@ class Modpedido extends CI_Model
 	public function getSucursaldireccion() { return $this->sucursaldireccion; }
 	public function getSucursalpago() { return $this->sucursalpago; }
 	public function getIdwinapp() { return $this->idwinapp; }
+	public function getObservaciones() { return $this->observaciones; }
 	public function setIdpedido($valor) { $this->idpedido= intval($valor); }
 	public function setFechapedido($valor) { $this->fechapedido= "".$valor; }
 	public function setHorapedido($valor) { $this->horapedido= "".$valor; }
@@ -84,6 +87,7 @@ class Modpedido extends CI_Model
 	public function setSucursaldireccion($valor) { $this->sucursaldireccion= intval($valor); }
 	public function setSucursalpago($valor) { $this->sucursalpago= intval($valor); }
 	public function setIdwinapp($valor) { $this->idwinapp= "".$valor; }
+	public function setObservaciones($valor) { $this->observaciones= "".$valor; }
 	public function getFromDatabase($id=0)
 	{
 		if($this->idpedido==""||$this->idpedido==0)
@@ -112,6 +116,7 @@ class Modpedido extends CI_Model
 		$this->setTotal($reg["total"]);
 		$this->setStatus($reg["status"]);
 		$this->setIdwinapp($reg["idwinapp"]);
+		$this->setObservaciones($reg["observaciones"]);
 		$this->db->where('idpedido',$this->idpedido);
 		$regs=$this->db->get('relusuped');
 		if($regs->num_rows()>0)
@@ -179,6 +184,7 @@ class Modpedido extends CI_Model
 		$this->setSucursaldireccion($this->input->post("frm_pedido_sucursaldireccion"));
 		$this->setSucursalpago($this->input->post("frm_pedido_sucursalpago"));
 		$this->setIdwinapp($this->input->post("frm_pedido_idwinapp"));
+		$this->setObservaciones($this->input->post("frm_pedido_observaciones"));
 		return true;
 	}
 	public function addToDatabase()
@@ -197,6 +203,7 @@ class Modpedido extends CI_Model
 			"total"=>$this->total,
 			"status"=>$this->status,
 			"idwinapp"=>$this->idwinapp,
+			"observaciones"=>$this->observaciones
 		);
 		$this->db->insert('pedido',$data);
 		$this->setIdpedido($this->db->insert_id());
@@ -247,6 +254,7 @@ class Modpedido extends CI_Model
 			"total"=>$this->total,
 			"status"=>$this->status,
 			"idwinapp"=>$this->idwinapp,
+			"observaciones"=>$this->observaciones
 		);
 		$this->db->where('idpedido',$this->idpedido);
 		$this->db->update('pedido',$data);
@@ -348,8 +356,11 @@ class Modpedido extends CI_Model
 		$partida->setHora(Hora());
 		$partida->setCantidad(intval($partida->getCantidad())+1);
 		$partida->setConcepto($producto->getNombre());
-		$partida->setPreciounitario($producto->getPrecio());
+		$partida->setPreciounitario($producto->getPrecioTotal());
 		$partida->setImporte(floatval($partida->getCantidad()*$partida->getPreciounitario()));
+		$partida->setPreciobase($producto->getPrecio());
+		$partida->setImpuesoporc($producto->getImpuesto());
+		$partida->setImpuesto($producto->getImpuesto()/100.0*$producto->getPrecio()*$partida->getCantidad());
 		$partida->setUsuario($this->session->userdata('idusuario'));
 		if($regs->num_rows()>0)
 		{
@@ -386,8 +397,11 @@ class Modpedido extends CI_Model
 		$partida->setHora(Hora());
 		$partida->setCantidad(intval($partida->getCantidad())-1);
 		$partida->setConcepto($producto->getNombre());
-		$partida->setPreciounitario($producto->getPrecio());
+		$partida->setPreciounitario($producto->getPrecioTotal());
 		$partida->setImporte(floatval($partida->getCantidad()*$partida->getPreciounitario()));
+		$partida->setPreciobase($producto->getPrecio());
+		$partida->setImpuesoporc($producto->getImpuesto());
+		$partida->setImpuesto($producto->getImpuesto()/100.0*$producto->getPrecio()*$partida->getCantidad());
 		if($partida->getCantidad()>0)
 		{
 			if($regs->num_rows()>0)
@@ -410,15 +424,16 @@ class Modpedido extends CI_Model
 		if($this->idpedido==""||$this->idpedido==0)
 			return false;
 		$subtotal=0.0;
+		$iva=0.0;
 		foreach($this->partidas as $p)
 		{
 			$partida=new Modpartida();
 			$partida->setIdpartida($p);
 			$partida->getFromDatabase();
-			$subtotal+=$partida->getImporte();
+			$subtotal+=$partida->getPreciobase()*$partida->getCantidad();
+			$iva+=$partida->getImpuesto();
 		}
 		$descuento=$subtotal*floatval($this->descuentoporcentaje)/100;
-		$iva=($subtotal-$descuento)*floatval($this->ivaporcentaje)/100;
 		$total=$subtotal-$descuento+$iva;
 		$this->subtotal=$subtotal;
 		$this->descuentomonto=$descuento;
@@ -451,6 +466,53 @@ class Modpedido extends CI_Model
 		if($regs->num_rows()==0)
 			return false;
 		return $regs->row_array()["idpedido"];
+	}
+	public function establecePartidaCatidad(Modproducto $producto, $cantidad)
+	{
+		if($this->idpedido==""||$this->idpedido==0)
+			return array("error"=>"idpedidonull");
+		if($producto->getIdproducto()==""||$producto->getIdproducto()==0)
+			return array("error"=>"idproductonull");
+		$res=array(
+			"error"=>false
+			);
+		$this->db->where("idpartida in (select idpartida from relpedpar where idpedido = {$this->idpedido}) and idpartida in (select idpartida from relpropar where idproducto = {$producto->getIdproducto()})");
+		$regs=$this->db->get('partida');
+		$partida=new Modpartida();
+		if($regs->num_rows()>0)
+		{
+			$partida->setIdpartida($regs->row_array()["idpartida"]);
+			$partida->getFromDatabase();
+		}
+		else
+		{
+			$partida->setIdpedido($this->idpedido);
+			$partida->setIdproducto($producto->getIdproducto());
+			$partida->setStatus($this->modflujo->getEstadoInicial($this->config->item('idflujopartida'))["idestado"]);
+		}
+		$partida->setFecha(Today());
+		$partida->setHora(Hora());
+		$partida->setCantidad($cantidad);
+		$partida->setConcepto($producto->getNombre());
+		$partida->setPreciounitario($producto->getPrecioTotal());
+		$partida->setImporte(floatval($partida->getCantidad()*$partida->getPreciounitario()));
+		$partida->setPreciobase($producto->getPrecio());
+		$partida->setImpuesoporc($producto->getImpuesto());
+		$partida->setImpuesto($producto->getImpuesto()/100.0*$producto->getPrecio()*$partida->getCantidad());
+		$partida->setUsuario($this->session->userdata('idusuario'));
+		if($regs->num_rows()>0)
+		{
+			$partida->updateToDatabase();
+		}
+		else
+		{
+			$partida->addToDatabase();
+		}
+		if($cantidad==0)
+		{
+			$partida->delete();
+		}
+		return $partida;
 	}
 }
 ?>

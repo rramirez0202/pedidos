@@ -143,6 +143,15 @@ class Modusuario extends CI_Model
 			return false;
 		return $regs->result_array();
 	}
+	public function getAllFromAssignedClients($idusr)
+	{
+		$this->db->where("idusuario in (select idusuario from relcliusu where idcliente in (select idcliente from relcliusu where idusuario = $idusr))");
+		$this->db->order_by('nombre');
+		$regs=$this->db->get('usuario');
+		if($regs->num_rows()==0)
+			return false;
+		return $regs->result_array();
+	}
 	public function delete($id=0)
 	{
 		if($this->idusuario==""||$this->idusuario==0)
@@ -195,12 +204,8 @@ class Modusuario extends CI_Model
 	{
 		if($this->idusuario==""||$this->idusuario==0)
 			return false;
-		$this->db->where("idusuario",$this->idusuario);
-		$this->db->delete("relcliusu");
-		$this->db->insert("relcliusu",array(
-			"idcliente"=>$idcliente,
-			"idusuario"=>$this->idusuario
-		));
+		$this->eliminarClientes($this->idusuario);
+		$this->agregarCliente($this->idusuario,$idcliente);
 	}
 	public function Inicializar()
 	{
@@ -214,6 +219,18 @@ class Modusuario extends CI_Model
 		$this->email="";
 		$this->activo=0;
 		$this->idwinapp="";
+	}
+	public function eliminarClientes($idusuario)
+	{
+		$this->db->where("idusuario",$idusuario);
+		$this->db->delete("relcliusu");
+	}
+	public function agregarCliente($idusuario,$idcliente)
+	{
+		$this->db->insert("relcliusu",array(
+			"idcliente"=>$idcliente,
+			"idusuario"=>$idusuario
+		));
 	}
 }
 ?>

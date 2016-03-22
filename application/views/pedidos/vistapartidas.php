@@ -59,12 +59,14 @@
 						</button>
 					</div>
 				</div>
+				<!--<table><tr>-->
 				<?php
 					$productMaster=array();
+					$h=1;
 					foreach($productos as $k=>$prod) if($prod["activo"]==1)
 					{
 						$productMaster[$prod["idproducto"]]=$prod;
-						?>
+						?><!--<td>-->
 						<div class="pull-left vistaProducto" id="panelProd<?= $prod["idproducto"]; ?>">
 							<div class="panel panel-success">
 								<div class="panel-heading">
@@ -78,29 +80,34 @@
 											</td>
 										</tr>
 										<tr><td><?= $prod["descripcion"]; ?></td></tr>
-										<tr><td><?= $prod["observaciones"]; ?></td></tr>
-										<tr><td>Costo: $ <?= number_format($prod["precio"],2); ?></td></tr>
+										<!--<tr><td><?= $prod["observaciones"]; ?></td></tr>-->
+										<tr><td>Costo: $ <?= number_format($prod["precio"]*(1+($prod["impuesto"]/100.0)),2); ?></td></tr>
 									</table>
 									<?php //var_dump($prod); ?>
 								</div>
 								<div class="panel-footer">
 									<table class="ancho100porciento">
 										<tr>
-											<td class="centrar centrarHorizontal ancho30porciento">
+											<td class="centrar centrarHorizontal ancho20porciento">
 												<?php if($this->modsesion->hasPermisoHijo(47) || $this->modsesion->hasPermisoHijo(48)): ?>
 												<button type="button" class="btn btn-default" onclick="Pedido.EliminaPartida(<?= $objeto->getIdpedido(); ?>,<?= $prod["idproducto"]?>)">
 													<span class="glyphicon glyphicon-minus-sign"></span>
 												</button>
 												<?php endif; ?>
 											</td>
-											<td class="centrar centrarHorizontal ancho30porciento">												
+											<td class="centrar centrarHorizontal ancho20porciento">												
 												<?php if($this->modsesion->hasPermisoHijo(46) || $this->modsesion->hasPermisoHijo(47)): ?>
 												<button type="button" class="btn btn-default" onclick="Pedido.AgregaPartida(<?= $objeto->getIdpedido(); ?>,<?= $prod["idproducto"]?>)">
 													<span class="glyphicon glyphicon-plus-sign"></span>
 												</button>
 												<?php endif; ?>
 											</td>
-											<td class="centrar centrarHorizontal ancho40porciento">
+											<td class="centrar centrarHorizontal ancho40porciento">												
+												<?php if($this->modsesion->hasPermisoHijo(46) || $this->modsesion->hasPermisoHijo(47)): ?>
+												<input class="txtQty" type="text" id="txtQty_<?= $prod["idproducto"]?>" value="" size="2" maxlength="2" onkeypress="Pedido.AgregaPartidaCantidad(event,<?= $objeto->getIdpedido(); ?>,<?= $prod["idproducto"]?>,this.value,this)" />
+												<?php endif; ?>
+											</td>
+											<td class="centrar centrarHorizontal ancho20porciento">
 												<span class="badge" id="cantidad<?= $prod["idproducto"]?>">0</span>
 											</td>
 										</tr>
@@ -108,9 +115,15 @@
 								</div>
 							</div>
 						</div>
-						<?php
+						<!--</td>--><?php
+						if($h%4==0)
+						{
+							?><!--</tr><tr>--><?php
+						}
+						$h++;
 					}
 				?>
+				</tr></table>
 			</td>
 		</tr>
 	</table>

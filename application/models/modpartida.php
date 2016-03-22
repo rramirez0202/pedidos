@@ -13,6 +13,9 @@ class Modpartida extends CI_Model
 	private $usuario;
 	private $idpedido;
 	private $idproducto;
+	private $preciobase;
+	private $impuesoporc;
+	private $impuesto;
 	public function __construct()
 	{
 		$this->idpartida=0;
@@ -27,6 +30,9 @@ class Modpartida extends CI_Model
 		$this->usuario=0;
 		$this->idpedido=0;
 		$this->idproducto=0;
+		$this->preciobase="";
+		$this->impuesoporc="";
+		$this->impuesto="";
 	}
 	public function getIdpartida() { return $this->idpartida; }
 	public function getFecha() { return $this->fecha; }
@@ -40,6 +46,9 @@ class Modpartida extends CI_Model
 	public function getUsuario() { return $this->usuario; }
 	public function getIdpedido() { return $this->idpedido; }
 	public function getIdproducto() { return $this->idproducto; }
+	public function getPreciobase() { return $this->preciobase; }
+	public function getImpuesoporc() { return $this->impuesoporc; }
+	public function getImpuesto() { return $this->impuesto; }
 	public function setIdpartida($valor) { $this->idpartida= intval($valor); }
 	public function setFecha($valor) { $this->fecha= "".$valor; }
 	public function setHora($valor) { $this->hora= "".$valor; }
@@ -52,6 +61,9 @@ class Modpartida extends CI_Model
 	public function setUsuario($valor) { $this->usuario= intval($valor); }
 	public function setIdpedido($valor) { $this->idpedido= intval($valor); }
 	public function setIdproducto($valor) { $this->idproducto= intval($valor); }
+	public function setPreciobase($valor) { $this->preciobase= "".$valor; }
+	public function setImpuesoporc($valor) { $this->impuesoporc= "".$valor; }
+	public function setImpuesto($valor) { $this->impuesto= "".$valor; }
 	public function getFromDatabase($id=0)
 	{
 		if($this->idpartida==""||$this->idpartida==0)
@@ -75,6 +87,9 @@ class Modpartida extends CI_Model
 		$this->setDescuento($reg["descuento"]);
 		$this->setImporte($reg["importe"]);
 		$this->setStatus($reg["status"]);
+		$this->setPreciobase($reg["preciobase"]);
+		$this->setImpuesoporc($reg["impuesoporc"]);
+		$this->setImpuesto($reg["impuesto"]);
 		$this->db->where('idpartida',$this->idpartida);
 		$regs=$this->db->get('relparusu');
 		if($regs->num_rows()>0)
@@ -112,6 +127,9 @@ class Modpartida extends CI_Model
 		$this->setUsuario($this->input->post("frm_partida_usuario"));
 		$this->setIdpedido($this->input->post("frm_partida_idpedido"));
 		$this->setIdproducto($this->input->post("frm_partida_idproducto"));
+		$this->setPreciobase($this->input->post("frm_partida_preciobase"));
+		$this->setImpuesoporc($this->input->post("frm_partida_impuesoporc"));
+		$this->setImpuesto($this->input->post("frm_partida_impuesto"));
 		return true;
 	}
 	public function addToDatabase()
@@ -124,7 +142,10 @@ class Modpartida extends CI_Model
 			"preciounitario"=>$this->preciounitario,
 			"descuento"=>$this->descuento,
 			"importe"=>$this->importe,
-			"status"=>$this->status
+			"status"=>$this->status,
+			"preciobase"=>$this->preciobase,
+			"impuesoporc"=>$this->impuesoporc,
+			"impuesto"=>$this->impuesto
 		);
 		$this->db->insert('partida',$data);
 		$this->setIdpartida($this->db->insert_id());
@@ -149,7 +170,10 @@ class Modpartida extends CI_Model
 			"preciounitario"=>$this->preciounitario,
 			"descuento"=>$this->descuento,
 			"importe"=>$this->importe,
-			"status"=>$this->status
+			"status"=>$this->status,
+			"preciobase"=>$this->preciobase,
+			"impuesoporc"=>$this->impuesoporc,
+			"impuesto"=>$this->impuesto
 		);
 		$this->db->where('idpartida',$this->idpartida);
 		$this->db->update('partida',$data);

@@ -12,7 +12,22 @@ class Usuarios extends CI_Controller
 		$this->load->model('modusuario');
 		$head=$this->load->view('html/head',array(),true);
 		$menumain=$this->load->view('menu/menumain',array(),true);
-		$usuarios=$this->modusuario->getAll();
+		$idusr=0;
+		foreach($this->config->item('idperfilvistaxclientesasignados') as $perf)
+		{
+			if($this->modsesion->getPerfil($perf)!==false)
+			{
+				$idusr=$this->session->userdata('idusuario');
+				break;
+			}
+		}
+		if($idusr==0 && $this->modsesion->getPerfil($this->config->item('idperfilcliente'))!==false)
+			$idusr=$this->session->userdata('idusuario');
+		$usuarios=array();
+		if($idusr==0)
+			$usuarios=$this->modusuario->getAll();
+		else
+			$usuarios=$this->modusuario->getAllFromAssignedClients($idusr);
 		$body=$this->load->view('usuarios/index',array(
 			"menumain"=>$menumain,
 			"usuarios"=>$usuarios
@@ -58,7 +73,7 @@ class Usuarios extends CI_Controller
 			"pwd"=>$pwd
 			),true);
 		$this->load->library('email');
-		$this->email->from('no-reply@cremeriaysalchichonerialili.com',"Cremería y Salchiconería Lili");
+		$this->email->from($this->config->item("noreplyemail"),$this->config->item("noreplyname"));
 		$this->email->to($this->modusuario->getEmail());
 		$this->email->message($cuerpomail);
 		$this->email->subject('Alta en Sistema: Control de Pedidos');
@@ -101,6 +116,7 @@ class Usuarios extends CI_Controller
 	{
 		$this->load->model('modusuario');
 		$this->load->model('modperfil');
+		$this->load->model('modcliente');
 		$this->modusuario->getFromDatabase($id);
 		$head=$this->load->view('html/head',array(),true);
 		$menumain=$this->load->view('menu/menumain',array(),true);
@@ -108,7 +124,8 @@ class Usuarios extends CI_Controller
 			"menumain"=>$menumain,
 			"objeto"=>$this->modusuario,
 			"perfiles"=>$this->modperfil->getAll(),
-			"idcliente"=>$idcliente
+			"idcliente"=>$idcliente,
+			"clientes"=>$this->modcliente->getAll($id)
 			),true);
 		$this->load->view('html/html',array("head"=>$head,"body"=>$body));
 		$this->modsesion->addLog(
@@ -161,6 +178,26 @@ class Usuarios extends CI_Controller
 			"idCliente"=>$idcliente
 			),true);
 		$this->load->view('html/html',array("head"=>$head,"body"=>$body));
+	}                        
+	public function frmasignaclientes($id)
+	{
+		$this->load->model("modcliente");
+		$this->load->view("clientes/formularioasignar",array(
+			"idusr"=>$id,
+			"clientesActual"=>$this->modcliente->getAll($id),
+			"clientes"=>$this->modcliente->getAll()
+			));
+	}
+	public function asignaclientes($id)
+	{
+		$this->load->model('modusuario');
+		$ctes=$this->input->post("ctes");
+		$ctes=explode(",",$ctes);
+		$this->modusuario->eliminarClientes($id);
+		foreach($ctes as $cte) if(intval($cte)>0)
+		{
+			$this->modusuario->agregarCliente($id,$cte);
+		}
 	}
 }
 ?>

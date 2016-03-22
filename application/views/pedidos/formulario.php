@@ -19,6 +19,7 @@ if($clientes!==false) foreach($clientes as $cte)
 		));
 	}
 }
+$usr=$this->session->userdata('datausr');
 ?>
 <div class="container">
 	<table class="contenidos">
@@ -56,6 +57,12 @@ if($clientes!==false) foreach($clientes as $cte)
 			        	</div>
 			        </div>
 			        <div class="form-group">
+			        	<label class="col-sm-4 control-label">Usuario Actual:</label>
+			        	<div class="col-sm-8">
+			        		<p class="form-control-static"><?= "{$usr["nombre"]} {$usr["apaterno"]}"; ?></p>
+			        	</div>
+			        </div>
+			        <div class="form-group">
 			        	<label class="col-sm-4 control-label" for="frm_pedido_sucursaldireccion">Sucursal para facturación <abbr class="text-danger" title="Campo Obligatorio">(*)</abbr></label>
 			        	<div class="col-sm-8">
 			        		<select class="form-control" id="frm_pedido_sucursaldireccion" name="frm_pedido_sucursaldireccion">
@@ -85,10 +92,16 @@ if($clientes!==false) foreach($clientes as $cte)
 			        		</select>
 			        	</div>
 			        </div>
-			        <div class="form-group">
+			        <!--<div class="form-group">
 			        	<label class="col-sm-4 control-label" for="frm_pedido_idwinapp">Id WinApp</label>
 			        	<div class="col-sm-8">
 			        		<input type="text" class="form-control" id="frm_pedido_idwinapp" name="frm_pedido_idwinapp" value="<?= $objeto->getIdwinapp(); ?>" />
+			        	</div>
+			        </div>-->
+			        <div class="form-group" <?= ($this->modsesion->getPerfil($this->config->item('idperfilcliente'))!==false?'style="display: none;"':''); ?> >
+			        	<label class="col-sm-4 control-label" for="frm_pedido_observaciones">Observaciones</label>
+			        	<div class="col-sm-8">
+			        		<textarea rows="3" class="form-control" id="frm_pedido_observaciones" name="frm_pedido_observaciones"><?= $objeto->getObservaciones(); ?></textarea>
 			        	</div>
 			        </div>
 			        <div class="form-group">
@@ -107,4 +120,7 @@ if($clientes!==false) foreach($clientes as $cte)
 </div>
 <script type="text/javascript">
 	var clientesSucursales = <?= json_encode($jscte); ?>;
+	$(document).ready(function(){
+		Pedido.Verifica1Cte();
+	});
 </script>

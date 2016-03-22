@@ -60,7 +60,7 @@ $config['uri_protocol']	= 'AUTO';
 | http://codeigniter.com/user_guide/general/urls.html
 */
 
-$config['url_suffix'] = 'lili';
+$config['url_suffix'] = 'ragr';
 
 /*
 |--------------------------------------------------------------------------
@@ -360,16 +360,6 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-/* My configs RAGR */
-$config["idperfilcliente"]=2;
-$config["ruta_downloads"]="./project_files/tmp/downloads/";
-$config["ruta_uploads"]="./project_files/tmp/uploads/";
-$config["idflujopedido"]=2;
-$config["idflujopartida"]=1;
-$config["estadospedidocambiofechacreacion"]=array(6,8);
-$config["estadospedidocambiofechaentrega"]=array(12);
-$config["estadospedidoactualizapartidas"]=array(6);
-$config["estadospedidoactualizapartidasestado"]=array(1);
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

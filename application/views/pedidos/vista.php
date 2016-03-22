@@ -26,6 +26,11 @@ $producto=new Modproducto();
 				<span class="glyphicon glyphicon-shopping-cart"></span>
 			</button>
 			<?php endif;
+			if($this->modsesion->hasPermisoHijo(69)): ?>
+			<button type="button" class="btn btn-default" title="Actualizar Id WinApp" onclick="Pedido.FrmCapturaIdWinApp(<?= $objeto->getIdPedido(); ?>)">
+				<span class="glyphicon glyphicon-barcode"></span> Id WinApp
+			</button>
+			<?php endif;
 			if($this->modsesion->hasPermisoHijo(68)): ?>
 			<button type="button" class="btn btn-default" title="Borrar Pedido" onclick="Pedido.Eliminar(<?= $objeto->getIdpedido(); ?>)">
 				<span class="glyphicon glyphicon-trash"></span>
@@ -104,6 +109,12 @@ $producto=new Modproducto();
 			        		<p class="form-control-static"><?= $objeto->getIdwinapp(); ?></p>
 			        	</div>
 			        </div>
+			        <div class="form-group" <?= ($this->modsesion->getPerfil($this->config->item('idperfilcliente'))!==false?'style="display: none;"':''); ?> >
+			        	<label class="col-sm-4 control-label" for="frm_pedido_observaciones">Observaciones</label>
+			        	<div class="col-sm-8">
+			        		<p class="form-control-static"><?= $objeto->getObservaciones(); ?></p>
+			        	</div>
+			        </div>
 			        <div class="form-group">
 			        	<label class="col-sm-2 control-label">Fecha y Hora del Pedido</label>
 			        	<div class="col-sm-4">
@@ -135,11 +146,12 @@ $producto=new Modproducto();
 			        	</div>
 			        </div>
 			        <div class="form-group">
-			        	<label class="col-sm-2 control-label">I.V.A. Porcentaje</label>
+			        	<!--<label class="col-sm-2 control-label">I.V.A. Porcentaje</label>
 			        	<div class="col-sm-4">
 			        		<p class="form-control-static"><?= number_format($objeto->getivaporcentaje(),2); ?> %</p>
-			        	</div>
-			        	<label class="col-sm-2 control-label">I.V.A. Monto</label>
+			        	</div>-->
+			        	<div class="col-sm-6"></div>
+			        	<label class="col-sm-2 control-label">Impuesto</label>
 			        	<div class="col-sm-4">
 			        		<p class="form-control-static">$ <?= number_format($objeto->getivamonto(),2); ?></p>
 			        	</div>
@@ -155,7 +167,17 @@ $producto=new Modproducto();
 			        	</div>
 			        </div>
 			    </form>
-			    <?php if($acciones!==false): ?>
+			    <?php if(
+			    		$acciones!==false && 
+			    		(
+			    			$this->modsesion->getPerfil($this->config->item('idperfilcliente'))===false 
+			    			||
+			    			(
+			    				$this->modsesion->hasPermisoHijo(67) && 
+			    				in_array($objeto->getStatus(),$this->config->item('estadospedidoactualizapartidas'))
+			    			)
+			    		)
+			    		): ?>
 			    	<div class="btn-group">
 			    		<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
 			    			Acciones
@@ -172,18 +194,19 @@ $producto=new Modproducto();
 			    <?php endif;
 			    if($objeto->getPartidas()!==false):
 			    	$statusPartidaActualizable=false;
-			    	foreach($objeto->getPartidas() as $p)
-			    	{
-						$partida->setIdpartida($p);
-						$partida->getFromDatabase();
-						if(
-							in_array($partida->getStatus(),$this->config->item('estadospedidoactualizapartidasestado'))
-							)
-						{
-							$statusPartidaActualizable=true;
-							break;
+			    	if(in_array($objeto->getStatus(),$this->config->item('estadospedidoactualizapartidasestado'))) 
+			    		foreach($objeto->getPartidas() as $p)
+			    		{
+							$partida->setIdpartida($p);
+							$partida->getFromDatabase();
+							if(
+								in_array($partida->getStatus(),$this->config->item('estadospartidaactualizaestado'))
+								)
+							{
+								$statusPartidaActualizable=true;
+								break;
+							}
 						}
-					}
 			    	?>
 			    	<div class="table-responsive">
 						<table class="table table-striped table-hover">

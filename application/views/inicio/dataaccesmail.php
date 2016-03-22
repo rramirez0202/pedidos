@@ -5,7 +5,7 @@ if(!isset($pwd)) $pwd="";
 <html class="no-js" lang="es">
 	<head>
 		<meta charset="utf-8" />
-		<title>..:: Lili - Cremería y Salchichoneria ::..</title>
+		<title><?= $this->config->item("sitename"); ?></title>
 		<style type="text/css">
 			.dataaccessContenedor
 			{
@@ -54,7 +54,7 @@ if(!isset($pwd)) $pwd="";
 		<div class="dataaccessContenedor">
 			<div class="dataaccessDatos">
 				<a href="<?= base_url(); ?>">
-					<img src="<?= base_url('project_files/img/acceso/laroca-login.png'); ?>" />
+					<img src="<?= base_url('project_files/img/acceso/login.png'); ?>" />
 				</a>
 				<div>Tus datos de acceso al sistema son:</div>
 				<hr />

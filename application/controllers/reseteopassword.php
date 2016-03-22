@@ -39,7 +39,7 @@ class Reseteopassword extends CI_Controller
 					"pwd"=>$pwd
 					),true);
 				$this->load->library('email');
-				$this->email->from('no-reply@cremeriaysalchichonerialili.com',"Cremería y Salchiconería Lili");
+				$this->email->from($this->config->item("noreplyemail"),$this->config->item("noreplyname"));
 				$this->email->to($this->modusuario->getEmail());
 				$this->email->message($cuerpomail);
 				$this->email->subject('Alta en Sistema: Control de Pedidos');

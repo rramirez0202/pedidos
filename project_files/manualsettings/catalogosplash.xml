@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<catalogosplash>
+	<marcas>
+		<marca display="true" displaytitle="true" displaybody="true" id="10" titlepicture="" bodypicture="" informativename="1-2-3" />
+		<marca display="true" displaytitle="true" displaybody="true" id="11" titlepicture="" bodypicture="" informativename="ABARROTES" />
+		<marca display="true" displaytitle="true" displaybody="true" id="12" titlepicture="" bodypicture="" informativename="ACHIOTE" />
+		<marca display="true" displaytitle="true" displaybody="true" id="13" titlepicture="" bodypicture="" informativename="ACIETE OLIVO" />
+		<marca display="true" displaytitle="true" displaybody="true" id="14" titlepicture="" bodypicture="" informativename="ACT II" />
+		<marca display="true" displaytitle="true" displaybody="true" id="15" titlepicture="" bodypicture="" informativename="BOTANAS" />
+		<marca display="true" displaytitle="true" displaybody="true" id="16" titlepicture="" bodypicture="" informativename="CALMEX" />
+		<marca display="true" displaytitle="true" displaybody="true" id="17" titlepicture="" bodypicture="" informativename="CAMBELLS" />
+		<marca display="true" displaytitle="true" displaybody="true" id="18" titlepicture="" bodypicture="" informativename="CAPULLO" />
+		<marca display="true" displaytitle="true" displaybody="true" id="19" titlepicture="" bodypicture="" informativename="CEREAL" />
+		<marca display="true" displaytitle="true" displaybody="true" id="20" titlepicture="" bodypicture="" informativename="CHARRA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="21" titlepicture="" bodypicture="" informativename="CLEMENTE JACQUES" />
+		<marca display="true" displaytitle="true" displaybody="true" id="22" titlepicture="" bodypicture="" informativename="CORONADO" />
+		<marca display="true" displaytitle="true" displaybody="true" id="23" titlepicture="" bodypicture="" informativename="CREMO CHANTY" />
+		<marca display="true" displaytitle="true" displaybody="true" id="24" titlepicture="" bodypicture="" informativename="CROSSE BLACKWELL" />
+		<marca display="true" displaytitle="true" displaybody="true" id="25" titlepicture="" bodypicture="" informativename="DEL MONTE" />
+		<marca display="true" displaytitle="true" displaybody="true" id="26" titlepicture="" bodypicture="" informativename="DOLORES" />
+		<marca display="true" displaytitle="true" displaybody="true" id="27" titlepicture="" bodypicture="" informativename="DONDE" />
+		<marca display="true" displaytitle="true" displaybody="true" id="28" titlepicture="" bodypicture="" informativename="FRENCHS" />
+		<marca display="true" displaytitle="true" displaybody="true" id="29" titlepicture="" bodypicture="" informativename="GAMESA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="30" titlepicture="" bodypicture="" informativename="HELLMANS" />
+		<marca display="true" displaytitle="true" displaybody="true" id="31" titlepicture="" bodypicture="Herdez.jpg" informativename="HERDEZ" />
+		<marca display="true" displaytitle="true" displaybody="true" id="32" titlepicture="" bodypicture="" informativename="KNORR SUIZA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="33" titlepicture="" bodypicture="" informativename="LA CHATA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="34" titlepicture="" bodypicture="la costena.jpg" informativename="LA COSTEÑA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="35" titlepicture="" bodypicture="Veladoras.jpg" informativename="LA MEDALLA MILAGROSA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="36" titlepicture="" bodypicture="La moderna.jpg" informativename="LA MODERNA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="37" titlepicture="" bodypicture="" informativename="LA PASTORA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="38" titlepicture="" bodypicture="" informativename="LA SIERRA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="39" titlepicture="" bodypicture="" informativename="LA SOPITA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="40" titlepicture="" bodypicture="" informativename="LA TORRE" />
+		<marca display="true" displaytitle="true" displaybody="true" id="41" titlepicture="" bodypicture="" informativename="LEGAL" />
+		<marca display="true" displaytitle="true" displaybody="true" id="42" titlepicture="" bodypicture="" informativename="MAIZENA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="43" titlepicture="" bodypicture="" informativename="MASECA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="44" titlepicture="" bodypicture="" informativename="McCORMICK" />
+		<marca display="true" displaytitle="true" displaybody="true" id="45" titlepicture="" bodypicture="" informativename="MERCED" />
+		<marca display="true" displaytitle="true" displaybody="true" id="46" titlepicture="" bodypicture="" informativename="MINSA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="47" titlepicture="" bodypicture="" informativename="NAIR" />
+		<marca display="true" displaytitle="true" displaybody="true" id="48" titlepicture="" bodypicture="" informativename="NESTLE" />
+		<marca display="true" displaytitle="true" displaybody="true" id="49" titlepicture="" bodypicture="" informativename="NUTRIOLI" />
+		<marca display="true" displaytitle="true" displaybody="true" id="50" titlepicture="" bodypicture="" informativename="SABROSANO" />
+		<marca display="true" displaytitle="true" displaybody="true" id="51" titlepicture="" bodypicture="" informativename="SAN MARCOS" />
+		<marca display="true" displaytitle="true" displaybody="true" id="52" titlepicture="" bodypicture="" informativename="SOBA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="53" titlepicture="" bodypicture="" informativename="TANG" />
+		<marca display="true" displaytitle="true" displaybody="true" id="54" titlepicture="" bodypicture="" informativename="TRES ESTRELLAS" />
+		<marca display="true" displaytitle="true" displaybody="true" id="55" titlepicture="" bodypicture="" informativename="VALENTINA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="56" titlepicture="" bodypicture="" informativename="VENECIA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="57" titlepicture="" bodypicture="" informativename="ISADORA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="58" titlepicture="" bodypicture="" informativename="BIG COLA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="59" titlepicture="" bodypicture="Boing.jpg" informativename="BOING" />
+		<marca display="true" displaytitle="true" displaybody="true" id="60" titlepicture="" bodypicture="" informativename="BONAFINA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="61" titlepicture="" bodypicture="Bonafont.jpg" informativename="BONAFONT" />
+		<marca display="true" displaytitle="true" displaybody="true" id="62" titlepicture="" bodypicture="" informativename="COCA COLA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="63" titlepicture="" bodypicture="Cerveza.jpg" informativename="CUAUHTÉMOC" />
+		<marca display="true" displaytitle="true" displaybody="true" id="64" titlepicture="" bodypicture="" informativename="DEL VALLE" />
+		<marca display="true" displaytitle="true" displaybody="true" id="65" titlepicture="" bodypicture="" informativename="DIRIS" />
+		<marca display="true" displaytitle="true" displaybody="true" id="66" titlepicture="" bodypicture="" informativename="GATORADE" />
+		<marca display="true" displaytitle="true" displaybody="true" id="67" titlepicture="" bodypicture="Cerveza.jpg" informativename="GRUPO MODELO" />
+		<marca display="true" displaytitle="true" displaybody="true" id="68" titlepicture="" bodypicture="" informativename="JUMEX" />
+		<marca display="true" displaytitle="true" displaybody="true" id="69" titlepicture="" bodypicture="Lala.jpg" informativename="LALA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="70" titlepicture="" bodypicture="" informativename="NO" />
+		<marca display="true" displaytitle="true" displaybody="true" id="71" titlepicture="" bodypicture="" informativename="PEÑAFIEL" />
+		<marca display="true" displaytitle="true" displaybody="true" id="72" titlepicture="" bodypicture="" informativename="PEPSI" />
+		<marca display="true" displaytitle="true" displaybody="true" id="73" titlepicture="" bodypicture="Vina real.jpg" informativename="TAGLE / ALIANZA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="74" titlepicture="" bodypicture="" informativename="UNIFOODS" />
+		<marca display="true" displaytitle="true" displaybody="true" id="75" titlepicture="" bodypicture="Fud.jpg" informativename="SIGMA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="76" titlepicture="" bodypicture="Fud.jpg" informativename="ZIGMA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="77" titlepicture="" bodypicture="Manantiales.jpg" informativename="MANANTIALES" />
+		<marca display="true" displaytitle="true" displaybody="true" id="78" titlepicture="" bodypicture="" informativename="ALUMINIO" />
+		<marca display="true" displaytitle="true" displaybody="true" id="79" titlepicture="" bodypicture="" informativename="CARTON" />
+		<marca display="true" displaytitle="true" displaybody="true" id="80" titlepicture="" bodypicture="" informativename="PAPEL" />
+		<marca display="true" displaytitle="true" displaybody="true" id="81" titlepicture="" bodypicture="" informativename="PLASTICOS" />
+		<marca display="true" displaytitle="true" displaybody="true" id="82" titlepicture="" bodypicture="" informativename="TERMICO" />
+		<marca display="true" displaytitle="true" displaybody="true" id="83" titlepicture="" bodypicture="" informativename="DKAR" />
+		<marca display="true" displaytitle="true" displaybody="true" id="84" titlepicture="" bodypicture="" informativename="ALFA GOURMET" />
+		<marca display="true" displaytitle="true" displaybody="true" id="85" titlepicture="" bodypicture="" informativename="CAPISTRANO" />
+		<marca display="true" displaytitle="true" displaybody="true" id="86" titlepicture="" bodypicture="Jamones.jpg" informativename="CREMERIA LILY" />
+		<marca display="true" displaytitle="true" displaybody="true" id="87" titlepicture="" bodypicture="" informativename="ESMERALDA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="88" titlepicture="" bodypicture="" informativename="GALICIA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="89" titlepicture="" bodypicture="" informativename="PROD NEZA" />
+		<marca display="true" displaytitle="true" displaybody="true" id="90" titlepicture="" bodypicture="" informativename="ANGELILLO" />
+		<marca display="true" displaytitle="true" displaybody="true" id="91" titlepicture="" bodypicture="" informativename="MARTELL" />
+	</marcas>
+</catalogosplash>

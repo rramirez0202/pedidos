@@ -94,6 +94,24 @@
 				        <?php
 					}
 					?>
+					<div class="col-sm-12">
+						<fieldset>
+							<legend>
+								Clientes Asignados
+								<?php if($this->modsesion->hasPermisoHijo(70)): ?>
+									<button type="button" class="btn btn-default" onclick="Usuario.FrmClientAssign(<?= $objeto->getIdusuario(); ?>)">
+										<span class="glyphicon glyphicon-user"></span>
+										Reasignar Clientes
+									</button>
+								<?php endif; ?>
+							</legend>
+							<ul class="list-group">
+							<?php if($clientes!==false) foreach($clientes as $cte): ?>
+								<li class="list-group-item"><?= $cte["razonsocial"]." (".$cte["nombre"].")"; ?></li>
+							<?php endforeach; ?>
+							</ul>
+						</fieldset>
+					</div>
 				</form>
 			</td>
 		</tr>

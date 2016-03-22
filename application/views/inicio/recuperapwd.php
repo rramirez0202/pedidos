@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
-		<title>..:: Lili - Cremería y Salchichoneria ::..</title>
+		<title><?= $this->config->item("sitename"); ?></title>
 		<link rel="stylesheet" href="<?= base_url('project_files/css/acceso/style.css'); ?>" />
 		<link rel="shortcut icon" href="<?= base_url('project_files/img/acceso/favicon.png'); ?>" type="image/x-icon" />
 		<link rel="apple-touch-icon" href="<?= base_url('project_files/img/acceso/favicon.png'); ?>" />
@@ -14,7 +14,7 @@
 		<link rel="apple-touch-icon" sizes="120x120" href="<?= base_url('project_files/img/acceso/favicon.png'); ?>" />
 		<link rel="apple-touch-icon" sizes="144x144" href="<?= base_url('project_files/img/acceso/favicon.png'); ?>" />
 		<link rel="apple-touch-icon" sizes="152x152" href="<?= base_url('project_files/img/acceso/favicon.png'); ?>" />
-		<meta name="apple-mobile-web-app-title" content="Cremería y Salchichonería Lili">
+		<meta name="apple-mobile-web-app-title" content="<?= $this->config->item("appname"); ?>">
 		<script src="<?= base_url('project_files/js/jquery-2.1.4.min.js'); ?>"></script>
 		<script src="<?= base_url('project_files/js/acceso/vendor/modernizr.js'); ?>"></script>
 		<!-- jQuery MSG plugin -->
@@ -37,7 +37,7 @@
 				<div class="page-canvas">
 					<form id="frm_acceso" class="form-signin" role="form" onsubmit="return false;">
 						<a href="<?= base_url(); ?>">
-							<img src="<?= base_url('project_files/img/acceso/laroca-login.png'); ?>" width="336" height="82" class="brand animated fadeInDown">
+							<img src="<?= base_url('project_files/img/acceso/login.png'); ?>" width="336" height="82" class="brand animated fadeInDown">
 						</a>
 						<div class="contenedorForma">
 							<p style="text-align: justify;">Iniciarás el proceso de restauración de contraseña, para ello es necesario que ingreses tu <strong>usuario</strong> y en breve recibirás un correo electrónico con tu nueva contraseña.</p>

@@ -71,6 +71,12 @@
         					</div>
 				        </div>
 			        </div>
+			        <div class="form-group">
+			        	<label for="frm_cliente_descuento" class="col-sm-2 control-label">Descuento</label>
+			        	<div class="col-sm-10">
+			        		<p class="form-control-static"><?= $objeto->getDescuento(); ?></p>
+			        	</div>
+			        </div>
 				</form>
 				<?php if($this->modsesion->hasPermisoHijo(32)): ?>
 					<div class="btn-toolbar pull-right" role="toolbar">

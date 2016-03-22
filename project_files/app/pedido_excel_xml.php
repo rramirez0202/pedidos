@@ -23,55 +23,57 @@ if($archivo!="")
 		$elemento=$doc->createElement("pedido");
 		foreach($cellIterator as $celda)
 		{
+			$valor=$celda->getValue();
+			$valor=str_replace("&","&amp;",$valor);
 			switch($celda->getColumn())
 			{
 				case "A":
-					$elemento->setAttribute("idpedido",$celda->getValue());
+					$elemento->setAttribute("idpedido",$valor);
 					break;
 				case "B":
-					$elemento->setAttribute("idwinapp",$celda->getValue());
+					$elemento->setAttribute("idwinapp",$valor);
 					break;
 				case "C":
-					$elemento->setAttribute("cteidwinapp",$celda->getValue());
+					$elemento->setAttribute("cteidwinapp",$valor);
 					break;
 				case "D":
-					$elemento->setAttribute("cliente",$celda->getValue());
+					$elemento->setAttribute("cliente",$valor);
 					break;
 				case "E":
-					$elemento->setAttribute("sucursalentrega",$celda->getValue());
+					$elemento->setAttribute("sucursalentrega",$valor);
 					break;
 				case "F":
-					$elemento->setAttribute("sucursalcobro",$celda->getValue());
+					$elemento->setAttribute("sucursalcobro",$valor);
 					break;
 				case "G":
-					$elemento->setAttribute("sucursalfacturacion",$celda->getValue());
+					$elemento->setAttribute("sucursalfacturacion",$valor);
 					break;
 				case "H":
-					$dato=$celda->getValue();
+					$dato=$valor;
 					$dato=substr($dato,1);
 					$dato=substr($dato,0,strlen($dato)-1);
 					$elemento->setAttribute("fechapedido",$dato);
 					break;
 				case "I":
-					$dato=$celda->getValue();
+					$dato=$valor;
 					$dato=substr($dato,1);
 					$dato=substr($dato,0,strlen($dato)-1);
 					$elemento->setAttribute("horapedido",$dato);
 					break;
 				case "J":
-					$dato=$celda->getValue();
+					$dato=$valor;
 					$dato=substr($dato,1);
 					$dato=substr($dato,0,strlen($dato)-1);
 					$elemento->setAttribute("fechaentrega",$dato);
 					break;
 				case "K":
-					$dato=$celda->getValue();
+					$dato=$valor;
 					$dato=substr($dato,1);
 					$dato=substr($dato,0,strlen($dato)-1);
 					$elemento->setAttribute("horaentrega",$dato);
 					break;
 				case "L":
-					$elemento->setAttribute("estado",$celda->getValue());
+					$elemento->setAttribute("estado",$valor);
 					break;
 			}
 		}
@@ -84,34 +86,36 @@ if($archivo!="")
 			$elementoP=$doc->createElement("partida");
 			foreach($cellIterator as $celda)
 			{
+				$valor=$celda->getValue();
+				$valor=str_replace("&","&amp;",$valor);
 				switch($celda->getColumn())
 				{
 					case "A":
-						$elementoP->setAttribute("idpedido",$celda->getValue());
+						$elementoP->setAttribute("idpedido",$valor);
 						break;
 					case "B":
-						$elementoP->setAttribute("idwinapp",$celda->getValue());
+						$elementoP->setAttribute("idwinapp",$valor);
 						break;
 					case "C":
-						$elementoP->setAttribute("idproducto",$celda->getValue());
+						$elementoP->setAttribute("idproducto",$valor);
 						break;
 					case "D":
-						$elementoP->setAttribute("idwinappprod",$celda->getValue());
+						$elementoP->setAttribute("idwinappprod",$valor);
 						break;
 					case "E":
-						$elementoP->setAttribute("producto",$celda->getValue());
+						$elementoP->setAttribute("producto",$valor);
 						break;
 					case "F":
-						$elementoP->setAttribute("cantidad",$celda->getValue());
+						$elementoP->setAttribute("cantidad",$valor);
 						break;
 					case "G":
-						$elementoP->setAttribute("precio",$celda->getValue());
+						$elementoP->setAttribute("precio",$valor);
 						break;
 					case "H":
-						$elementoP->setAttribute("importe",$celda->getValue());
+						$elementoP->setAttribute("importe",$valor);
 						break;
 					case "I":
-						$elementoP->setAttribute("estado",$celda->getValue());
+						$elementoP->setAttribute("estado",$valor);
 						break;
 				}
 			}

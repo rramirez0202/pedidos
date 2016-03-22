@@ -12,9 +12,20 @@ class Clientes extends CI_Controller
 		$this->load->model('modcliente');
 		$head=$this->load->view('html/head',array(),true);
 		$menumain=$this->load->view('menu/menumain',array(),true);
+		$idusr=0;
+		foreach($this->config->item('idperfilvistaxclientesasignados') as $perf)
+		{
+			if($this->modsesion->getPerfil($perf)!==false)
+			{
+				$idusr=$this->session->userdata('idusuario');
+				break;
+			}
+		}
+		if($idusr==0 && $this->modsesion->getPerfil($this->config->item('idperfilcliente'))!==false)
+			$idusr=$this->session->userdata('idusuario');
 		$body=$this->load->view('clientes/index',array(
 			"menumain"=>$menumain,
-			"clientes"=>$this->modcliente->getAll()
+			"clientes"=>$this->modcliente->getAll($idusr)
 			),true);
 		$this->load->view('html/html',array("head"=>$head,"body"=>$body));
 	}
@@ -32,8 +43,10 @@ class Clientes extends CI_Controller
 	public function add()
 	{
 		$this->load->model('modcliente');
+		$this->load->model('modusuario');
 		$this->modcliente->getFromInput();
 		$this->modcliente->addToDatabase();
+		$this->modusuario->agregarCliente($this->session->userdata('idusuario'),$this->modcliente->getIdcliente());
 		echo $this->modcliente->getIdcliente();
 		$this->modsesion->addLog(
 			'agregar',
@@ -459,7 +472,7 @@ class Clientes extends CI_Controller
 				try
 				{
 					$this->load->library('email');
-					$this->email->from('no-reply@cremeriaysalchichonerialili.com',"Cremería y Salchiconería Lili");
+					$this->email->from($this->config->item("noreplyemail"),$this->config->item("noreplyname"));
 					$this->email->to($this->modusuario->getEmail());
 					$this->email->message($cuerpomail);
 					$this->email->subject('Alta en Sistema: Control de Pedidos');

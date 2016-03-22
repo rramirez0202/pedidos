@@ -1,0 +1,179 @@
+div.container
+{
+	min-width: 650px;
+	width: 90%;
+	background-color: rgba(255,255,255,0.50);
+	padding: 10px;
+	margin: auto;
+	display: block;
+}
+table.categoryTitle
+{
+	width: 100%;
+	height: 60px;
+	border-collapse: collapse;
+	border-width: 0px;
+	empty-cells: show;
+	color: #3c763d;
+	font-family: Calibri, Arial, sans-serif;
+	font-size: 20px;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+table.categoryTitle tr td:first-child
+{
+	width: 13px;
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/category-left.png');
+	background-repeat: no-repeat;
+}
+table.categoryTitle tr td:last-child
+{
+	width: 13px;
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/category-right.png');
+	background-repeat: no-repeat;
+}
+table.categoryTitle tr th
+{
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/category-center.png');
+	background-repeat: repeat-x;
+}
+table.marcaTitle
+{
+	width: 100%;
+	height: 60px;
+	border-collapse: collapse;
+	border-width: 0px;
+	empty-cells: show;
+	color: #00a6da;
+	font-family: Calibri, Arial, sans-serif;
+	font-size: 15px;
+}
+table.marcaTitle tr td:first-child
+{
+	width: 13px;
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/trademark-left.png');
+	background-repeat: no-repeat;
+}
+table.marcaTitle tr td:last-child
+{
+	width: 13px;
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/trademark-right.png');
+	background-repeat: no-repeat;
+}
+table.marcaTitle tr th
+{
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/trademark-center.png');
+	background-repeat: repeat-x;
+}
+table.categories
+{
+	width: 100%;
+	border-spacing: 5px;
+	table-layout: fixed;
+}
+table.categories td
+{
+	width: 33%;
+	vertical-align: top;
+}
+table.products
+{
+	width: 100%;
+	border-collapse: collapse;
+	border-width: 0px;
+	empty-cells: show;
+	color: #1c2c5e;
+	font-family: Calibri, Arial, sans-serif;
+	font-size: 15px;
+	margin-top: 10px;
+	table-layout: fixed;
+}
+table.products tr.top
+{
+	height: 13px;
+}
+table.products tr.top th:first-child
+{
+	width: 13px;
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/product-left-top.png');
+	background-repeat: no-repeat;
+	background-position: right;
+}
+table.products tr.top th:last-child
+{
+	width: 13px;
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/product-right-top.png');
+	background-repeat: no-repeat;
+}
+table.products tr.top td
+{
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/product-center-top.png');
+	background-repeat: repeat-x;
+}
+
+table.products tr.top, table.products tr.bottom
+{
+	height: 15px;
+}
+table.products tr.bottom th:first-child
+{
+	width: 13px;
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/product-left-bottom.png');
+	background-repeat: no-repeat;
+	background-position: right;
+}
+table.products tr.bottom th:last-child
+{
+	width: 13px;
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/product-right-bottom.png');
+	background-repeat: no-repeat;
+}
+table.products tr.bottom td
+{
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/product-center-bottom.png');
+	background-repeat: repeat-x;
+}
+table.products tr.middle th:first-child
+{
+	width: 13px;
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/product-left-middle.png');
+	background-repeat: repeat-y;
+	background-position: right;
+}
+table.products tr.middle th:last-child
+{
+	width: 13px;
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/product-right-middle.png');
+	background-repeat: repeat-y;
+}
+table.products tr.middle td
+{
+	background-color: transparent;
+	background-image: url('../img/catalogo/style/product-center-middle.png');
+	background-repeat: repeat;
+}
+
+img.marcaTitle
+{
+	
+}
+
+img.marcaBody
+{
+	margin-top: 5px;
+	border: 1px solid #1c2c5e;
+}

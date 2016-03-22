@@ -195,6 +195,34 @@ function fnValidaciones()
 	}
 }
 
+String.prototype.toNormalString=function()
+{
+	var cadena=this;
+	var res="";
+	for(var x=0;x<cadena.length;x++)
+	{
+		var car=cadena.substring(x,x+1);
+		if(('a'<=car && car<='z')||('A'<=car && car<='Z')||('0'<=car && car<='9'))
+			res+=car;
+		else if(car=="á") res+="a";
+		else if(car=="Á") res+="A";
+		else if(car=="é") res+="e";
+		else if(car=="É") res+="E";
+		else if(car=="í") res+="i";
+		else if(car=="Í") res+="I";
+		else if(car=="ó") res+="o";
+		else if(car=="Ó") res+="O";
+		else if(car=="ú") res+="u";
+		else if(car=="Ú") res+="U";
+		else if(car=="ü") res+="u";
+		else if(car=="Ü") res+="U";
+		else res+=" ";
+	}
+	while(res.indexOf("  ")>=0)
+		res=res.replace("  "," ");
+	return res;
+}
+
 var auxiliarFnPermiso=null;
 function fnPermiso()
 {
@@ -595,6 +623,89 @@ function fnUsuario()
 			$.msg('unblock',10,3);
 			setTimeout(function(){
 				Alert("Error al establecer contraseña: "+mensaje+"<br />"+jqXHRObj.responseText,function(){return true;});
+			},500);
+		});
+	}
+	this.FrmClientAssign=function(idusr)
+	{
+		Mensaje("Cargando lista de clientes");
+		var ajx=$.ajax({
+			method:	"POST",
+			url:	baseURL+"usuarios/frmasignaclientes/"+idusr,
+			cache:	false
+		});
+		ajx.done(function(resp){
+			$.msg('unblock',10,3);
+			setTimeout(function(){
+				Alert(resp,function(){Usuario.ClientAssign();})
+			},500);
+		});
+		ajx.fail(function(jqXHRObj,mensaje){
+			$.msg('unblock',10,3);
+			setTimeout(function(){
+				Alert("Error al obtener lista de clientes: "+mensaje+"<br />"+jqXHRObj.responseText,function(){return true;});
+			},500);
+		});
+	}
+	this.SeleccionaCte=function(idcte)
+	{
+		var currentCtes=$("#ctesSelected").val().split(",").sort();
+		var tmpArr=new Array();
+		if(currentCtes.indexOf(idcte)>=0)
+		{
+			for(var x=0;x<currentCtes.length;x++)
+				if(currentCtes[x]!=idcte)
+					tmpArr.push(currentCtes[x]);
+			$("#itemCte"+idcte).removeClass('active');
+		}
+		else
+		{
+			tmpArr=currentCtes;
+			tmpArr.push(idcte);
+			$("#itemCte"+idcte).addClass('active');
+			tmpArr.sort();
+		}
+		$("#ctesSelected")[0].value=tmpArr.join(",");
+	}
+	this.BuscaCte=function()
+	{
+		var cteDesc=$("#txtBuscar").val().toNormalString().toLowerCase().trim();
+		if(cteDesc=="")
+			$("ul.listaclientes li").each(function(idx){
+				$(this).show();
+			});
+		else
+			$("ul.listaclientes li").each(function(idx){
+				var cte=$(this).html().toNormalString().toLowerCase().trim();
+				if(cte.indexOf(cteDesc)>=0)
+					$(this).show();
+				else
+					$(this).hide();
+			});
+	}
+	this.ClientAssign=function()
+	{
+		var ajx=$.ajax({
+			method:	"POST",
+			url:	baseURL+"usuarios/asignaclientes/"+$("#frmAssignIdUsr").val(),
+			data:	{'ctes':$("#ctesSelected").val()},
+			cache:	false
+		});
+		ajx.done(function(resp){
+			if(resp.trim()==="")
+				location.reload();
+			else
+			{
+				$.msg('unblock',10,3);
+				setTimeout(function(){
+					Alert(resp,function(){return true;});
+				},500);
+			}
+		});
+		ajx.fail(function(jqXHRObj,mensaje){
+			$.msg('unblock',10,3);
+			setTimeout(function(){
+				Alert("Error al guardar lista de clientes: "+mensaje+"<br />"+jqXHRObj.responseText,function(){return true;});
 			},500);
 		});
 	}
@@ -1351,6 +1462,40 @@ function fnPedido()
 			})
 		}
 	}
+	this.AgregaPartidaCantidad=function(e,idPedido,idProducto,cantidad,objeto)
+	{
+		var enter=false;
+		if(window.event && window.event.keyCode==13)
+			enter=true;
+		else if((!window.event) && e.which==13)
+			enter=true;
+		if(!enter)
+			return false;
+		if(typeof ProductMaster != "undefined" && typeof ProductMaster[idProducto] != "undefined")
+		{
+			Mensaje("Actualizando pedido");
+			objeto.value="";
+			var ajx=$.ajax({
+				method:	"POST",
+				url:		baseURL+"pedidos/agregarpartidaCantidad",
+				cache:		false,
+				data:		{
+								idpedido:	idPedido,
+								idproducto:	idProducto,
+								cantidad:	cantidad
+							}
+			});
+			ajx.done(function(resp){
+				 Pedido.ActualizaPartida(idPedido,idProducto,resp);
+			});
+			ajx.fail(function(jqXHRObj,mensaje){
+				$.msg('unblock',10,3);
+				setTimeout(function(){
+					Mensaje("Error al procesar los datos: "+mensaje+"<br />"+jqXHRObj.responseText);
+				},500);
+			})
+		}
+	}
 	this.EliminaPartida=function(idPedido,idProducto)
 	{
 		if(typeof ProductMaster != "undefined" && typeof ProductMaster[idProducto] != "undefined" && parseInt($("#cantidad"+idProducto).html())>0)
@@ -1546,6 +1691,62 @@ function fnPedido()
 				},500)
 			});
 		}
+	}
+	this.Verifica1Cte=function()
+	{
+		var cboCtes=$("#frm_pedido_idcliente")[0];
+		var idx=null, x=0, contOpcs=0, idCte=null;
+		for(x=0;x<cboCtes.options.length;x++)
+		{
+			if(cboCtes.options[x].value!="" && parseInt(cboCtes.options[x].value)>0)
+			{
+				contOpcs++;
+				idx=x;
+				idCte=parseInt(cboCtes.options[x].value);
+			}
+		}
+		if(contOpcs==1 && idx>=0)
+		{
+			cboCtes.selectedIndex=idx;
+			this.AjustaSucursales(idCte);
+		}
+	}
+	this.FrmCapturaIdWinApp=function(idPedido)
+	{
+		var ajx=$.ajax({
+			method: "POST",
+			url:	baseURL+"pedidos/frmIdWinApp/"+idPedido,
+			cache:	false,
+		});
+		ajx.done(function(resp){
+			Confirm(resp,function(){
+				Pedido.CapturaIdWinApp();
+			});
+		})
+		ajx.fail(function(jqXHRObj,mensaje){
+			Mensaje("Error al obtener captura: "+mensaje+"<br />"+jqXHRObj.responseText);
+			});
+	}
+	this.CapturaIdWinApp=function()
+	{
+		var urlActual=location.href.replace("#","");
+		var ajx=$.ajax({
+			method: "POST",
+			url:	baseURL+"pedidos/getIdWinApp",
+			cache:	false,
+			data:	$("#frm_updIdWinApp").serialize()
+		});
+		ajx.done(function(resp){
+		    if(resp=="")
+				location.href=urlActual;
+			else
+			{
+				Alert(resp,function(){return true;});
+			}
+		})
+		ajx.fail(function(jqXHRObj,mensaje){
+			Mensaje("Error al guardar captura: "+mensaje+"<br />"+jqXHRObj.responseText);
+			});
 	}
 }
 

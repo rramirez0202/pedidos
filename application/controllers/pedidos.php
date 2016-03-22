@@ -14,15 +14,18 @@ class Pedidos extends CI_Controller
 		$this->load->model('modcliente');
 		$this->load->model('modflujo');
 		$pedidos=array();
-		$perfilCte=$this->modsesion->getPerfil($this->config->item('idperfilcliente'));
-		if($perfilCte===false)
+		$idusr=0;
+		foreach($this->config->item('idperfilvistaxclientesasignados') as $perf)
 		{
-			$pedidos=$this->modpedido->getAll();
+			if($this->modsesion->getPerfil($perf)!==false)
+			{
+				$idusr=$this->session->userdata('idusuario');
+				break;
+			}
 		}
-		else
-		{
-			$pedidos=$this->modpedido->getAll($this->session->userdata('idusuario'));
-		}
+		if($idusr==0 && $this->modsesion->getPerfil($this->config->item('idperfilcliente'))!==false)
+			$idusr=$this->session->userdata('idusuario');
+		$pedidos=$this->modpedido->getAll($idusr);
 		$head=$this->load->view('html/head',array(),true);
 		$menumain=$this->load->view('menu/menumain',array(),true);
 		$body=$this->load->view('pedidos/index',array(
@@ -36,16 +39,18 @@ class Pedidos extends CI_Controller
 		$this->load->model('modpedido');
 		$this->load->model('modcliente');
 		$this->load->model('modsucursal');
-		$clientes=array();
-		$perfilCte=$this->modsesion->getPerfil($this->config->item('idperfilcliente'));
-		if($perfilCte===false)
+		$idusr=0;
+		foreach($this->config->item('idperfilvistaxclientesasignados') as $perf)
 		{
-			$clientes=$this->modcliente->getAll();
+			if($this->modsesion->getPerfil($perf)!==false)
+			{
+				$idusr=$this->session->userdata('idusuario');
+				break;
+			}
 		}
-		else
-		{
-			$clientes=$this->modcliente->getAll($this->session->userdata('idusuario'));
-		}
+		if($idusr==0 && $this->modsesion->getPerfil($this->config->item('idperfilcliente'))!==false)
+			$idusr=$this->session->userdata('idusuario');
+		$clientes=$this->modcliente->getAll($idusr);
 		$head=$this->load->view('html/head',array(),true);
 		$menumain=$this->load->view('menu/menumain',array(),true);
 		$body=$this->load->view('pedidos/formulario',array(
@@ -61,7 +66,12 @@ class Pedidos extends CI_Controller
 	{
 		$this->load->model('modpedido');
 		$this->load->model('modflujo');
+		$this->load->model('modcliente');
 		$this->modpedido->getFromInput();
+		$this->modcliente->getFromDatabase($this->modpedido->getIdcliente());
+		$this->modpedido->setDescuentoporcentaje($this->modcliente->getDescuento());
+		$this->modpedido->setDescuentomonto($this->modcliente->getDescuento()/100*$this->modpedido->getSubtotal());
+		$this->modpedido->setTotal($this->modpedido->getSubtotal()-$this->modpedido->getDescuentomonto()+$this->modpedido->getIvamonto());
 		$this->modpedido->setFechapedido(Today());
 		$this->modpedido->setHorapedido(date('H:i:s'));
 		$this->modpedido->setStatus($this->modflujo->getEstadoInicial($this->config->item('idflujopedido'))["idestado"]);
@@ -79,7 +89,12 @@ class Pedidos extends CI_Controller
 	public function update()
 	{
 		$this->load->model('modpedido');
+		$this->load->model('modcliente');
 		$this->modpedido->getFromInput();
+		$this->modcliente->getFromDatabase($this->modpedido->getIdcliente());
+		$this->modpedido->setDescuentoporcentaje($this->modcliente->getDescuento());
+		$this->modpedido->setDescuentomonto($this->modcliente->getDescuento()/100*$this->modpedido->getSubtotal());
+		$this->modpedido->setTotal($this->modpedido->getSubtotal()-$this->modpedido->getDescuentomonto()+$this->modpedido->getIvamonto());
 		$this->modpedido->updateToDatabase();
 		echo $this->modpedido->getIdpedido();
 		$this->modsesion->addLog(
@@ -116,12 +131,24 @@ class Pedidos extends CI_Controller
 		$this->load->model('modsucursal');
 		$this->modpedido->setIdpedido($id);
 		$this->modpedido->getFromDatabase();
+		$idusr=0;
+		foreach($this->config->item('idperfilvistaxclientesasignados') as $perf)
+		{
+			if($this->modsesion->getPerfil($perf)!==false)
+			{
+				$idusr=$this->session->userdata('idusuario');
+				break;
+			}
+		}
+		if($idusr==0 && $this->modsesion->getPerfil($this->config->item('idperfilcliente'))!==false)
+			$idusr=$this->session->userdata('idusuario');
+		$clientes=$this->modcliente->getAll($idusr);
 		$head=$this->load->view('html/head',array(),true);
 		$menumain=$this->load->view('menu/menumain',array(),true);
 		$body=$this->load->view('pedidos/formulario',array(
 			"menumain"=>$menumain,
 			"objeto"=>$this->modpedido,
-			"clientes"=>$this->modcliente->getAll(),
+			"clientes"=>$clientes,
 			"cliente"=>$this->modcliente,
 			"sucursal"=>$this->modsucursal
 			),true);
@@ -252,6 +279,11 @@ class Pedidos extends CI_Controller
 	{
 		$this->load->model('modflujo');
 		$this->load->view("pedidos/formularioexportar",array("estados"=>$this->modflujo->getEstados($this->config->item('idflujopedido'))));
+	}
+	public function frmIdWinApp($idpedido)
+	{
+		$this->load->model('modflujo');
+		$this->load->view("pedidos/formularioidwinapp",array("idpedido"=>$idpedido));
 	}
 	public function exportarXML($inicio,$fin,$estado)
 	{
@@ -389,6 +421,38 @@ class Pedidos extends CI_Controller
 				}
 			}
 		}
+	}
+	public function getIdWinApp()
+	{
+		$idpedido=$this->input->post("idpedido");
+		$idwinapp=$this->input->post("idwinapp");
+		$this->load->model('modpedido');
+		$this->modpedido->getFromDatabase($idpedido);
+		$this->modpedido->setIdWinApp($idwinapp);
+		$this->modpedido->updateToDatabase();
+	}
+	public function agregarpartidaCantidad()
+	{
+		$this->load->model('modpedido');
+		$this->load->model('modproducto');
+		$this->load->model('modpartida');
+		$this->load->model('modflujo');
+		$idpedido=$this->input->post('idpedido');
+		$idproducto=$this->input->post('idproducto');
+		$cantidad=$this->input->post('cantidad');
+		$this->modpedido->setIdpedido($idpedido);
+		$this->modpedido->getFromDatabase();
+		$this->modproducto->setIdproducto($idproducto);
+		$this->modproducto->getFromDatabase();
+		$part=$this->modpedido->establecePartidaCatidad($this->modproducto,$cantidad);
+		$this->modpedido->getFromDatabase();
+		$this->modpedido->recalculaMontos();
+		$this->modpedido->updateToDatabase();
+		echo json_encode(array(
+			"totalpartidas"	=> $this->modpedido->getTotalpartidas(),
+			"total"			=> '$ '.number_format($this->modpedido->getTotal(),2),
+			"cantidad"		=> $part->getCantidad()
+		));
 	}
 }
 ?>

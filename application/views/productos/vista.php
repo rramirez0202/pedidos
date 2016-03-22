@@ -39,6 +39,24 @@
         				</div>
 			        </div>
 			        <div class="form-group">
+			        	<label class="col-sm-2 control-label" for="frm_producto_categoria">Categoría</label>
+			        	<div class="col-sm-4">
+			        		<p class="form-control-static">
+			        			<?php if($categoria!==false) foreach($categoria["opciones"] as $opc): ?>
+			        				<?= $opc["idcatalogodet"]==$objeto->getCategoria()?$opc["descripcion"]:""; ?>
+								<?php endforeach; ?>
+			        		</p>
+			        	</div>
+			        	<label class="col-sm-2 control-label" for="frm_producto_marca">Marca</label>
+			        	<div class="col-sm-4">
+			        		<p class="form-control-static">
+			        			<?php if($marca!==false) foreach($marca["opciones"] as $opc): ?>
+			        				<?= $opc["idcatalogodet"]==$objeto->getMarca()?$opc["descripcion"]:""; ?>
+								<?php endforeach; ?>
+			        		</p>
+			        	</div>
+			        </div>
+			        <div class="form-group">
         				<label for="frm_producto_descripcion" class="col-sm-2 control-label">Descripción</label>
         				<div class="col-sm-10">
         					<p class="form-control-static"><?= $objeto->getDescripcion(); ?></p>
@@ -63,6 +81,12 @@
         						</label>
         					</div>
 				        </div>
+			        </div>
+			        <div class="form-group">
+			        	<label for="frm_producto_impuesto" class="col-sm-2 control-label">Impuesto</label>
+			        	<div class="col-sm-4">
+			        		<p class="form-control-static"><?= $objeto->getImpuesto(); ?></p>
+			        	</div>
 			        </div>
 			        <div class="form-group">
         				<label for="frm_producto_fechacarga" class="col-sm-2 control-label">Fecha de Carga</label>

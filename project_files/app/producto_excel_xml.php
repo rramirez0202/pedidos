@@ -22,25 +22,36 @@ if($archivo!="")
 		$elemento=$doc->createElement("producto");
 		foreach($cellIterator as $celda)
 		{
+			$valor=$celda->getValue();
+			$valor=str_replace("&","&amp;",$valor);
 			switch($celda->getColumn())
 			{
 				case "A":
-					$elemento->setAttribute("producto",$celda->getValue());
+					$elemento->setAttribute("producto",$valor);
 					break;
 				case "B":
-					$elemento->appendChild($doc->createElement("descripcion",$celda->getValue()));
+					$elemento->appendChild($doc->createElement("descripcion",$valor));
 					break;
 				case "C":
-					$elemento->appendChild($doc->createElement("observaciones",$celda->getValue()));
+					$elemento->appendChild($doc->createElement("observaciones",$valor));
 					break;
 				case "D":
-					$elemento->setAttribute("precio",$celda->getValue());
+					$elemento->setAttribute("precio",$valor);
 					break;
 				case "E":
-					$elemento->setAttribute("idwinapp",$celda->getValue());
+					$elemento->setAttribute("idwinapp",$valor);
 					break;
 				case "F":
-					$elemento->setAttribute("activo",(strtolower(trim($celda->getValue()))=="si"?"true":"false"));
+					$elemento->setAttribute("activo",(strtolower(trim($valor))=="si"?"true":"false"));
+					break;
+				case "G":
+					$elemento->setAttribute("impuesto",$valor);
+					break;
+				case "H":
+					$elemento->setAttribute("marca",$valor);
+					break;
+				case "I":
+					$elemento->setAttribute("categoria",$valor);
 					break;
 			}
 		}

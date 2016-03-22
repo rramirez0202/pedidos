@@ -21,11 +21,14 @@ class Productos extends CI_Controller
 	public function nuevo()
 	{
 		$this->load->model('modproducto');
+		$this->load->model('modcatalogo');
 		$head=$this->load->view('html/head',array(),true);
 		$menumain=$this->load->view('menu/menumain',array(),true);
 		$body=$this->load->view('productos/formulario',array(
 			"menumain"=>$menumain,
-			"objeto"=>$this->modproducto
+			"objeto"=>$this->modproducto,
+			"categoria"=>$this->modcatalogo->getCatalogo(2),
+			"marca"=>$this->modcatalogo->getCatalogo(3)
 			),true);
 		$this->load->view('html/html',array("head"=>$head,"body"=>$body));
 	}
@@ -84,12 +87,15 @@ class Productos extends CI_Controller
 	public function ver($id)
 	{
 		$this->load->model('modproducto');
+		$this->load->model('modcatalogo');
 		$this->modproducto->getFromDatabase($id);
 		$head=$this->load->view('html/head',array(),true);
 		$menumain=$this->load->view('menu/menumain',array(),true);
 		$body=$this->load->view('productos/vista',array(
 			"menumain"=>$menumain,
-			"objeto"=>$this->modproducto
+			"objeto"=>$this->modproducto,
+			"categoria"=>$this->modcatalogo->getCatalogo(2),
+			"marca"=>$this->modcatalogo->getCatalogo(3)
 			),true);
 		$this->load->view('html/html',array("head"=>$head,"body"=>$body));
 		$this->modsesion->addLog(
@@ -103,12 +109,15 @@ class Productos extends CI_Controller
 	public function actualizar($id)
 	{
 		$this->load->model('modproducto');
+		$this->load->model('modcatalogo');
 		$this->modproducto->getFromDatabase($id);
 		$head=$this->load->view('html/head',array(),true);
 		$menumain=$this->load->view('menu/menumain',array(),true);
 		$body=$this->load->view('productos/formulario',array(
 			"menumain"=>$menumain,
-			"objeto"=>$this->modproducto
+			"objeto"=>$this->modproducto,
+			"categoria"=>$this->modcatalogo->getCatalogo(2),
+			"marca"=>$this->modcatalogo->getCatalogo(3)
 			),true);
 		$this->load->view('html/html',array("head"=>$head,"body"=>$body));
 	}
@@ -243,6 +252,7 @@ class Productos extends CI_Controller
 	public function importaXML($archivo)
 	{
 		$this->load->model('modproducto');
+		$this->load->model("modcatalogo");
 		$doc=new DOMDocument();
 		$doc->load($this->config->item("ruta_uploads").$archivo);
 		foreach($doc->getElementsByTagName("producto") as $prod)
@@ -271,6 +281,9 @@ class Productos extends CI_Controller
 			$this->modproducto->setActivo($prod->getAttribute("activo")=="true"?1:0);
 			$this->modproducto->setFechaactualizacion(Today());
 			$this->modproducto->setHoraactualizacion(Hora());
+			$this->modproducto->setImpuesto($prod->getAttribute("impuesto"));
+			$this->modproducto->setCategoria($this->modcatalogo->getIdOption(2,$prod->getAttribute("categoria")));
+			$this->modproducto->setMarca($this->modcatalogo->getIdOption(3,$prod->getAttribute("marca")));
 			if($id>0)
 			{
 				$this->modproducto->updateToDatabase();

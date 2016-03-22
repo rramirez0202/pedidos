@@ -21,6 +21,30 @@
         				</div>
 			        </div>
 			        <div class="form-group">
+			        	<label class="col-sm-2 control-label" for="frm_producto_categoria">Categoría</label>
+			        	<div class="col-sm-4">
+			        		<select class="form-control" id="frm_producto_categoria" name="frm_producto_categoria">
+			        			<option value=""></option>
+			        			<?php if($categoria!==false) foreach($categoria["opciones"] as $opc): ?>
+									<option value="<?= $opc["idcatalogodet"]; ?>" <?= ($opc["idcatalogodet"]==$objeto->getCategoria()?'selected="selected"':''); ?> >
+										<?= $opc["descripcion"]; ?>
+									</option>
+								<?php endforeach; ?>
+			        		</select>
+			        	</div>
+			        	<label class="col-sm-2 control-label" for="frm_producto_marca">Marca</label>
+			        	<div class="col-sm-4">
+			        		<select class="form-control" id="frm_producto_marca" name="frm_producto_marca">
+			        			<option value=""></option>
+			        			<?php if($marca!==false) foreach($marca["opciones"] as $opc): ?>
+									<option value="<?= $opc["idcatalogodet"]; ?>" <?= ($opc["idcatalogodet"]==$objeto->getMarca()?'selected="selected"':''); ?> >
+										<?= $opc["descripcion"]; ?>
+									</option>
+								<?php endforeach; ?>
+			        		</select>
+			        	</div>
+			        </div>
+			        <div class="form-group">
         				<label for="frm_producto_descripcion" class="col-sm-2 control-label">Descripción</label>
         				<div class="col-sm-10">
         					<textarea rows="3" class="form-control" id="frm_producto_descripcion" name="frm_producto_descripcion"><?= $objeto->getDescripcion(); ?></textarea>
@@ -45,6 +69,12 @@
         						</label>
         					</div>
 				        </div>
+			        </div>
+			        <div class="form-group">
+			        	<label for="frm_producto_impuesto" class="col-sm-2 control-label">Impuesto</label>
+			        	<div class="col-sm-4">
+			        		<input type="text" class="form-control" id="frm_producto_impuesto" name="frm_producto_impuesto" value="<?= $objeto->getImpuesto(); ?>" placeholder="0.00" maxlength="5" />
+			        	</div>
 			        </div>
 			        <div class="form-group">
         				<label for="frm_producto_fechacarga" class="col-sm-2 control-label">Fecha de Carga</label>

@@ -142,6 +142,7 @@ img.productoVisuzalizacion
 {
 	width: 180px; 
 	margin: 5px;
+	height: 375px;
 }
 .ancho100porciento
 {
@@ -154,4 +155,21 @@ img.productoVisuzalizacion
 .ancho40porciento
 {
 	width: 40%;
+}
+.ancho20porciento
+{
+	width: 20%;
+}
+.txtQty
+{
+	margin: 3px;
+	width: 30px;
+	text-align: center;
+}
+ul.listaclientes
+{
+	height: 250px;
+	overflow: scroll;
+	max-width: 700px;
+	min-width: 500px;
 }

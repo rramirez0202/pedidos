@@ -13,6 +13,9 @@ class Modproducto extends CI_Model
 	private $idwinapp;
 	private $imagen;
 	private $activo;
+	private $impuesto;
+	private $categoria;
+	private $marca;
 	public function __construct()
 	{
 		parent::__construct();
@@ -23,6 +26,7 @@ class Modproducto extends CI_Model
 	public function getDescripcion() { return $this->descripcion; }
 	public function getObservaciones() { return $this->observaciones; }
 	public function getPrecio() { return $this->precio; }
+	public function getPrecioTotal() { return $this->precio*(1+($this->impuesto/100.0)); }
 	public function getFechacarga() { return $this->fechacarga; }
 	public function getHoracarga() { return $this->horacarga; }
 	public function getFechaactualizacion() { return $this->fechaactualizacion; }
@@ -30,6 +34,9 @@ class Modproducto extends CI_Model
 	public function getIdwinapp() { return $this->idwinapp; }
 	public function getImagen() { return $this->imagen; }
 	public function getActivo() { return $this->activo; }
+	public function getImpuesto() { return $this->impuesto; }
+	public function getCategoria() { return $this->categoria; }
+	public function getMarca() { return $this->marca; }
 	public function setIdproducto($valor) { $this->idproducto= intval($valor); }
 	public function setNombre($valor) { $this->nombre= "".$valor; }
 	public function setDescripcion($valor) { $this->descripcion= "".$valor; }
@@ -42,6 +49,9 @@ class Modproducto extends CI_Model
 	public function setIdwinapp($valor) { $this->idwinapp= "".$valor; }
 	public function setImagen($valor) { $this->imagen= "".$valor; }
 	public function setActivo($valor) { $this->activo= intval($valor); }
+	public function setImpuesto($valor) { $this->impuesto= "".$valor; }
+	public function setCategoria($valor) { $this->categoria= "".$valor; }
+	public function setMarca($valor) { $this->marca= "".$valor; }
 	public function getFromDatabase($id=0)
 	{
 		if($this->idproducto==""||$this->idproducto==0)
@@ -67,6 +77,9 @@ class Modproducto extends CI_Model
 		$this->setIdwinapp($reg["idwinapp"]);
 		$this->setImagen($reg["imagen"]);
 		$this->setActivo($reg["activo"]);
+		$this->setImpuesto($reg["impuesto"]);
+		$this->setCategoria($reg["categoria"]);
+		$this->setMarca($reg["marca"]);
 		return true;
 	}
 	public function getFromInput()
@@ -83,6 +96,9 @@ class Modproducto extends CI_Model
 		$this->setIdwinapp($this->input->post("frm_producto_idwinapp"));
 		$this->setActivo($this->input->post("frm_producto_activo"));
 		$this->setImagen($this->input->post("frm_producto_imagen"));
+		$this->setImpuesto($this->input->post("frm_producto_impuesto"));
+		$this->setCategoria($this->input->post("frm_producto_categoria"));
+		$this->setMarca($this->input->post("frm_producto_marca"));
 		return true;
 	}
 	public function addToDatabase()
@@ -98,7 +114,10 @@ class Modproducto extends CI_Model
 			"horaactualizacion"=>$this->horaactualizacion,
 			"idwinapp"=>$this->idwinapp,
 			"imagen"=>$this->imagen,
-			"activo"=>$this->activo
+			"activo"=>$this->activo,
+			"impuesto"=>$this->impuesto,
+			"categoria"=>$this->categoria,
+			"marca"=>$this->marca
 		);
 		$this->db->insert('producto',$data);
 		$this->setIdproducto($this->db->insert_id());
@@ -121,7 +140,10 @@ class Modproducto extends CI_Model
 			"horaactualizacion"=>$this->horaactualizacion,
 			"idwinapp"=>$this->idwinapp,
 			"imagen"=>$this->imagen,
-			"activo"=>$this->activo
+			"activo"=>$this->activo,
+			"impuesto"=>$this->impuesto,
+			"categoria"=>$this->categoria,
+			"marca"=>$this->marca
 		);
 		$this->db->where('idproducto',$this->idproducto);
 		$this->db->update('producto',$data);
@@ -169,6 +191,18 @@ class Modproducto extends CI_Model
 		$this->idwinapp="";
 		$this->imagen="";
 		$this->activo=0;
+		$this->impuesto="";
+		$this->categoria="";
+		$this->marca="";
+	}
+	public function catalogoproductos($categoria,$marca)
+	{
+		$this->db->where(array('categoria'=>$categoria,"marca"=>$marca));
+		$this->db->order_by('nombre');
+		$regs=$this->db->get('producto');
+		if($regs->num_rows()==0)
+			return false;
+		return $regs->result_array();
 	}
 }
 ?>

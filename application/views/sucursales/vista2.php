@@ -83,7 +83,7 @@
         </div>
 	</div>
 	<div class="form-group">
-        <label for="frm_sucursal_observaciones" class="col-sm-2 control-label">Observaciones</label>
+        <label for="frm_sucursal_observaciones" class="col-sm-2 control-label">Obs.</label>
         <div class="col-sm-10">
         	<p class="form-control-static"><?= $objeto->getObservaciones(); ?></p>
         </div>
